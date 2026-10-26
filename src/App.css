@@ -1,184 +1,984 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
-
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+.container {
+  width: min(1120px, 92%);
+  margin-inline: auto;
 }
 
-.hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
+/* ---------- Header ---------- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(251, 248, 241, 0.82);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--paper-edge);
 }
 
-#center {
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand__logo {
+  height: 64px;
+  width: 64px;
+  flex-shrink: 0;
+  object-fit: contain; /* never crop the logo */
+  mix-blend-mode: multiply;
+}
+
+.brand__text {
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
+  line-height: 1.1;
 }
 
-#next-steps {
+.brand__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+}
+
+.brand__sub {
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pink-deep);
+}
+
+.nav {
   display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
+  align-items: center;
+  gap: 28px;
+}
 
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
+.nav a {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  transition: color 0.2s;
+}
+
+.nav a:hover {
+  color: var(--pink-deep);
+}
+
+.menu-btn {
+  display: none;
+  background: none;
+  border: 1px solid var(--paper-edge);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font: inherit;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 26px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn--primary {
+  background: linear-gradient(135deg, var(--pink), var(--pink-deep));
+  color: #fff;
+  box-shadow: 0 10px 22px -10px rgba(214, 33, 143, 0.7);
+}
+
+.btn--ghost {
+  border-color: var(--ink);
+  color: var(--ink);
+  background: transparent;
+}
+
+.btn--ghost:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  padding: 90px 0 110px;
+  overflow: hidden;
+}
+
+.hero__grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--pink-deep);
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 5.4vw, 4.2rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.hero h1 em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--pink-deep);
+}
+
+.hero__lead {
+  margin-top: 22px;
+  max-width: 520px;
+  font-size: 1.08rem;
+  color: var(--ink);
+}
+.hero__lead2 {
+  margin-top: 15px;
+  max-width: 520px;
+  font-size: 1.08rem;
+  color: var(--ink-soft);
+}
+
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 25px;
+}
+
+.hero__verse {
+  margin-top: 50px;
+  margin-bottom: 0;
+  padding-left: 16px;
+  border-left: 3px solid var(--pink);
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--ink-soft);
+  max-width: 460px;
+}
+
+.hero__verse span {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.hero__art {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.hero__art::before {
+  content: '';
+  position: absolute;
+  width: 88%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--pink-soft), transparent 68%);
+  filter: blur(8px);
+}
+
+.hero__frame {
+  position: relative;
+  width: min(480px, 100%); /* larger on desktop; mobile size is set in the media query */
+  margin: 0;
+}
+
+.hero__photo {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: 70% center; /* keep the worshipper's face + raised hands */
+  border-radius: 900px 900px 28px 28px; /* arch */
+  box-shadow: 0 24px 50px -20px rgba(120, 20, 80, 0.45);
+}
+
+.hero__caption {
+  position: relative;
+  z-index: 1;
+  margin: 14px 0 20px;
+  text-align: center;
+}
+
+.hero__caption strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+}
+
+.hero__caption span {
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pink-deep);
+}
+
+/* ---------- Service times strip ---------- */
+.times {
+  margin-top: -50px;
+  position: relative;
+  z-index: 2;
+}
+
+.times__card {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: #fffdf8;
+  border: 1px solid var(--paper-edge);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.time {
+  padding: 28px 30px;
+  border-right: 1px solid var(--paper-edge);
+}
+
+.time:last-child {
+  border-right: 0;
+}
+
+.time__label {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.time__title {
+  margin-top: 6px;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+}
+
+.time__when {
+  margin-top: 4px;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+/* ---------- Sections ---------- */
+.section {
+  padding: 100px 0 20px;
+}
+
+.section__head {
+  max-width: 620px;
+  margin-bottom: 44px;
+}
+
+.section__head h2 {
+  font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+}
+
+.section__head p {
+  margin-top: 14px;
+  color: var(--ink-soft);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  background: #fffdf8;
+  border: 1px solid var(--paper-edge);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+  border: 1px solid black;
+}
+
+.card__icon {
+  display: grid;
+  place-items: center;
+  background: var(--pink-soft);
+}
+
+.card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+.card p {
+  color: var(--ink-soft);
+  font-size: 0.97rem;
+}
+
+
+/* ---------- Worship banner ---------- */
+.strip {
+  padding-top: 90px;
+}
+
+.banner {
+  position: relative;
+  margin: 0;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: var(--pink-deep);
+}
+
+.banner__img {
+  width: 100%;
+  aspect-ratio: 938 / 282;
+  min-height: 300px;
+  object-fit: cover;
+  object-position: 55% center;
+}
+
+/* brand-pink wash so the busy collage sits inside the theme */
+.banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(122, 15, 80, 0.92) 0%, rgba(168, 20, 109, 0.62) 42%, rgba(168, 20, 109, 0.1) 100%);
+}
+
+.banner__text {
+  position: absolute;
+  z-index: 1;
+  inset: 0 auto 0 0;
+  max-width: 480px;
+  padding: 0 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+}
+
+.banner__eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #f7dcec;
+}
+
+.banner__title {
+  margin-top: 10px;
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+  line-height: 1.15;
+}
+
+.banner__text .btn {
+  align-self: flex-start;
+  margin-top: 22px;
+}
+
+/* ---------- Leadership ---------- */
+.leaders {
+  display: grid;
+  gap: 28px;
+}
+
+.leader {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 48px;
+  background: #fffdf8;
+  border: 1px solid var(--paper-edge);
+  border-radius: 28px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+.leader:nth-child(even) .leader__photo {
+  order: 2;
+}
+
+.leader__photo {
+  width: 100%;
+  height: auto; /* always show the whole photo, never crop */
+  border-radius: 20px;
+}
+
+.leader__body {
+  padding: 8px 20px 8px 0;
+}
+
+.leader:nth-child(even) .leader__body {
+  padding: 8px 0 8px 20px;
+}
+
+.leader__role {
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pink-deep);
+}
+
+.leader h3 {
+  margin-top: 8px;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+}
+
+.leader p {
+  margin-top: 14px;
+  color: var(--ink-soft);
+}
+
+/* ---------- About ---------- */
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.about__panel {
+  background: linear-gradient(160deg, var(--paper-deep), #fffdf8);
+  border: 1px solid var(--paper-edge);
+  border-radius: 28px;
+  padding: 44px;
+  text-align: center;
+}
+
+.about__cross {
+  height: 230px;
+  width: auto;
+  margin: 0 auto 22px;
+  filter: drop-shadow(0 8px 14px rgba(42, 34, 38, 0.22));
+}
+
+
+.about__panel q {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.25rem;
+}
+
+.about__text h2 {
+  font-size: clamp(1.8rem, 3.4vw, 2.5rem);
+  margin-bottom: 16px;
+}
+
+.about__text p + p {
+  margin-top: 14px;
+}
+
+.about__text p {
+  color: var(--ink-soft);
+}
+
+/* ---------- Contact / CTA ---------- */
+.cta {
+  margin: 90px 0 0;
+  padding: 55px 0 50px 0;
+  text-align: center;
+  background: linear-gradient(135deg, var(--pink-deep), #7a0f50);
+  color: #fff;
+}
+
+.cta h2 {
+  font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+}
+
+.cta p {
+  max-width: 520px;
+  margin: 14px auto 28px;
+  opacity: 0.9;
+}
+
+.btn--light {
+  background: #fff;
+  color: var(--pink-deep);
+  margin: 0 10px 10px 10px;
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  padding: 36px 0;
+  background: var(--paper-deep);
+  border-top: 1px solid var(--paper-edge);
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .menu-btn {
+    display: block;
   }
 
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
+  .nav {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
     flex-direction: column;
+    gap: 0;
+    background: var(--paper);
+    border-bottom: 1px solid var(--paper-edge);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s;
+  }
+
+  .nav.is-open {
+    max-height: 360px;
+  }
+
+  .nav a {
+    width: 100%;
+    padding: 16px 4%;
+    border-top: 1px solid var(--paper-edge);
+  }
+
+  .hero {
+    padding: 56px 0 90px;
+  }
+
+  .hero__grid,
+  .about {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__frame {
+    width: min(420px, 88%);
+  }
+
+  .times__card,
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .time {
+    border-right: 0;
+    border-bottom: 1px solid var(--paper-edge);
+  }
+
+  .time:last-child {
+    border-bottom: 0;
+  }
+
+  .strip {
+    padding-top: 64px;
+  }
+
+  .banner__img {
+    aspect-ratio: 4 / 5;
+    min-height: 0;
+    object-position: 58% center;
+    /* raise the photo: zoom from the bottom edge so the top (and its collage seam) is trimmed
+       while the whole bottom of the image stays visible. Mobile only. */
+    transform: scale(1.2);
+    transform-origin: 58% 100%;
+  }
+
+  .banner::after {
+    background: linear-gradient(0deg, rgba(122, 15, 80, 0.95) 0%, rgba(168, 20, 109, 0.55) 45%, rgba(168, 20, 109, 0.05) 100%);
+  }
+
+  .banner__text {
+    inset: auto 0 0 0;
+    max-width: none;
+    padding: 0 24px 26px;
+  }
+
+  .leader {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 14px 14px 26px;
+  }
+
+  .leader:nth-child(even) .leader__photo {
+    order: 0;
+  }
+
+  .leader__body,
+  .leader:nth-child(even) .leader__body {
+    padding: 0 10px;
     text-align: center;
   }
 }
 
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
+/* ---------- Ministry icons (animated SVG) ---------- */
+.card__icon {
+  width: 76px;
+  height: 76px;
+  padding: 6px;
+  border-radius: 20px;
+  margin-bottom: 20px;
 }
 
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
-}
-
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
-}
-
-.ticks {
-  position: relative;
+.mi {
   width: 100%;
+  height: 100%;
+  overflow: visible;
+}
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
+.mi-halo,
+.mi-ring,
+.mi-rays,
+.mi-spark,
+.mi-dove,
+.mi--bible {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.mi-fill {
+  fill: #fff;
+  stroke: var(--pink-deep);
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  transition: fill 0.4s;
+}
+
+.mi-eye {
+  fill: #3a0b28;
+}
+
+.mi-feather {
+  stroke-width: 1.1;
+}
+
+.mi-wing--far .mi-fill {
+  fill: #f4dfeb;
+}
+
+.mi-body {
+  fill: url(#mi-dove-body);
+}
+
+.mi-lines--body {
+  stroke: #e3b9d0;
+  stroke-width: 1;
+}
+
+.mi-stem {
+  fill: none;
+  stroke: #5f7f2c;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
+
+.mi-leaf {
+  fill: #86b043;
+  stroke: #5f7f2c;
+  stroke-width: 0.8;
+  stroke-linejoin: round;
+}
+
+.mi-halo {
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.5s, transform 0.6s;
+}
+
+.mi-spark {
+  fill: #ffcf4d;
+  opacity: 0;
+}
+
+/* --- Dove --- */
+.mi-dove {
+  transition: filter 0.5s, transform 0.5s;
+}
+
+.card:is(:hover, .is-live) .mi--dove .mi-halo {
+  opacity: 1;
+  transform: scale(1);
+  animation: mi-glow 2.2s ease-in-out 0.6s infinite;
+}
+
+.card:is(:hover, .is-live) .mi-dove {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 0 3px #fff2a8) drop-shadow(0 0 9px #ffcf4d);
+}
+
+.card:is(:hover, .is-live) .mi--dove .mi-fill:not(.mi-body) {
+  fill: #fffbea;
+}
+
+.card:is(:hover, .is-live) .mi-wing {
+  transform-origin: 29px 36px;
+  transform-box: view-box;
+  animation: mi-flap 1.3s ease-in-out infinite;
+}
+
+.card:is(:hover, .is-live) .mi-wing--far {
+  animation-delay: -0.15s;
+}
+
+.card:is(:hover, .is-live) .mi-spark {
+  animation: mi-twinkle 1.6s ease-in-out infinite;
+}
+
+@keyframes mi-glow {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.12); opacity: 1; }
+}
+
+@keyframes mi-flap {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-9deg); }
+}
+
+@keyframes mi-twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.3); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+/* --- Bible --- */
+.mi-cover {
+  fill: var(--pink-deep);
+  stroke: var(--pink-deep);
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+
+.mi-lines {
+  fill: none;
+  stroke: #d9b6cb;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
+
+.mi-spine {
+  stroke: var(--pink-deep);
+  stroke-width: 1.4;
+  fill: none;
+}
+
+.mi-turn {
+  transform-box: view-box;
+  transform-origin: 32px 0;
+  transition: transform 0.85s cubic-bezier(0.45, 0, 0.25, 1);
+}
+
+.card:is(:hover, .is-live) .mi-turn--a {
+  transform: scaleX(-1);
+}
+
+.card:is(:hover, .is-live) .mi-turn--b {
+  transform: scaleX(-1);
+  transition-delay: 0.7s;
+}
+
+/* auto mode on phones (.is-live): the pages keep turning in a loop.
+   One cycle = 3.2s: two pages turn, hold briefly, turn back, then it starts again almost at once.
+   Make the number smaller (e.g. 2.6s) to shorten the wait even more. */
+.card.is-live .mi-turn--a {
+  animation: mi-turn-a 3.2s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+}
+
+.card.is-live .mi-turn--b {
+  animation: mi-turn-b 3.2s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+}
+
+@keyframes mi-turn-a {
+  0% { transform: scaleX(1); }
+  20%, 76% { transform: scaleX(-1); }
+  96%, 100% { transform: scaleX(1); }
+}
+
+@keyframes mi-turn-b {
+  0%, 9% { transform: scaleX(1); }
+  29%, 80% { transform: scaleX(-1); }
+  98%, 100% { transform: scaleX(1); }
+}
+
+.mi--bible {
+  transition: transform 0.4s;
+}
+
+.card:is(:hover, .is-live) .mi--bible {
+  transform: rotate(-3deg) scale(1.04);
+}
+
+/* --- Cross --- */
+.mi-cross-base {
+  fill: url(#mi-cross-wood);
+  stroke: #6a0c45;
+  stroke-width: 1;
+  stroke-linejoin: round;
+}
+
+.mi-cross-goldfill {
+  fill: url(#mi-cross-gold);
+  stroke: #9a6a12;
+  stroke-width: 1;
+  stroke-linejoin: round;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.mi-bevel {
+  fill: none;
+  stroke: #fff;
+  stroke-opacity: 0.4;
+  stroke-width: 0.9;
+  stroke-linecap: round;
+}
+
+.mi-grain {
+  fill: none;
+  stroke: #fff;
+  stroke-opacity: 0.16;
+  stroke-width: 0.7;
+  stroke-linecap: round;
+}
+
+.mi-gem {
+  fill: url(#mi-cross-gem);
+  stroke: #9a6a12;
+  stroke-width: 0.8;
+}
+
+.mi-steps rect {
+  fill: #f3cfe1;
+  stroke: var(--pink-deep);
+  stroke-width: 1;
+  transition: fill 0.4s;
+}
+
+.mi-rays line {
+  stroke: #f5b82e;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.mi-rays {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.mi-ring {
+  fill: none;
+  stroke: #f5b82e;
+  stroke-width: 1.4;
+  opacity: 0;
+}
+
+.mi-crossbody {
+  transition: filter 0.5s;
+}
+
+.card:is(:hover, .is-live) .mi--cross .mi-halo {
+  opacity: 1;
+  transform: scale(1);
+  animation: mi-glow 1.8s ease-in-out 0.6s infinite;
+}
+
+.card:is(:hover, .is-live) .mi-rays {
+  opacity: 1;
+  animation: mi-spin 9s linear infinite;
+}
+
+.card:is(:hover, .is-live) .mi-crossbody {
+  filter: drop-shadow(0 0 3px #fff2a8) drop-shadow(0 0 8px #ffcf4d);
+}
+
+.card:is(:hover, .is-live) .mi-cross-goldfill {
+  opacity: 1;
+}
+
+.card:is(:hover, .is-live) .mi-steps rect {
+  fill: #fde7a8;
+}
+
+.card:is(:hover, .is-live) .mi-ring {
+  animation: mi-ring 2s ease-out infinite;
+}
+
+.card:is(:hover, .is-live) .mi-ring--2 {
+  animation-delay: 1s;
+}
+
+.card:is(:hover, .is-live) .mi--cross .mi-spark {
+  animation: mi-twinkle 1.6s ease-in-out infinite;
+}
+
+@keyframes mi-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes mi-ring {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(2.3); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mi *,
+  .mi {
+    animation: none !important;
+    transition: none !important;
   }
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
+  .card:is(:hover, .is-live) .mi-halo {
+    opacity: 1;
+    transform: scale(1);
   }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
-  }
+}
+
+/* ---------- Leader photo: soft curtain backdrop (Pastor Osemeke) ---------- */
+.leader__photo--curtain {
+  background-color: var(--paper-edge);
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 45%),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0,
+      rgba(255, 255, 255, 0.6) 26px,
+      rgba(255, 255, 255, 0) 52px,
+      rgba(120, 90, 60, 0.07) 80px,
+      rgba(255, 255, 255, 0) 106px
+    );
 }
