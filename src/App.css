@@ -18,6 +18,7 @@
   align-items: center;
   justify-content: space-between;
   height: 80px;
+  margin: 5px auto 5px auto;
 }
 
 .brand {
@@ -71,6 +72,103 @@
   color: var(--pink-deep);
 }
 
+/* ---------- Nav dropdowns ---------- */
+.nav__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 80px; /* full header height, so the hover area reaches the dropdown with no gap */
+}
+
+/* dropdown words are buttons (they only open / close their list, they are not links) */
+.nav__link--parent {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.nav__link--parent:hover {
+  color: var(--pink-deep);
+}
+
+/* small chevron after words that have a dropdown */
+.nav__item--has-menu > .nav__link::after {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-left: 7px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.2s;
+}
+
+@media (min-width: 861px) {
+  .nav__item--has-menu.is-open > .nav__link {
+    color: var(--pink-deep);
+  }
+
+  .nav__item--has-menu.is-open > .nav__link::after {
+    transform: translateY(1px) rotate(225deg);
+  }
+
+  .nav__menu {
+    position: absolute;
+    top: 100%;
+    left: -16px;
+    z-index: 60;
+    padding-top: 6px; /* invisible bridge so the menu doesn't close while the mouse crosses it */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(6px);
+    transition: opacity 0.18s, transform 0.18s, visibility 0.18s;
+  }
+
+  .nav__item--has-menu.is-open > .nav__menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+  }
+
+  .nav__list {
+    list-style: none;
+    margin: 0;
+    padding: 8px;
+    min-width: 210px;
+    background: #fffdf8;
+    border: 1px solid var(--paper-edge);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+  }
+
+  .nav__list a {
+    display: block;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 0.92rem;
+    white-space: nowrap;
+  }
+
+  .nav__list a:hover,
+  .nav__list a:focus-visible {
+    background: var(--pink-soft);
+    color: var(--pink-deep);
+  }
+}
+
 .menu-btn {
   display: none;
   background: none;
@@ -80,6 +178,43 @@
   font: inherit;
   color: var(--ink);
   cursor: pointer;
+}
+
+.header__tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* light / dark switch – icon drawn with CSS only */
+.theme-btn {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--paper-edge);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, transform 0.2s;
+}
+
+.theme-btn:hover {
+  border-color: var(--pink-deep);
+  color: var(--pink-deep);
+  transform: rotate(12deg);
+}
+
+.theme-btn__icon {
+  position: relative;
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  box-shadow: inset -5px -2px 0 0 currentColor; /* crescent moon (shown in light mode) */
+  transform: rotate(-20deg);
 }
 
 /* ---------- Buttons ---------- */
@@ -121,7 +256,7 @@
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
-  padding: 90px 0 110px;
+  padding: 60px 0 110px;
   overflow: hidden;
 }
 
@@ -412,6 +547,78 @@
   margin-top: 22px;
 }
 
+/* ---------- Under His Wings (looping video) ---------- */
+.wings {
+  position: relative;
+  margin: 0;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: #2a0c3a;
+  isolation: isolate;
+}
+
+.wings__video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 854 / 360; /* the cropped video's own shape */
+  min-height: 320px;
+  object-fit: cover;
+  object-position: 50% 40%;
+  pointer-events: none;
+}
+
+/* plum wash + soft centre shade so the words stay readable over the moving picture */
+.wings::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center, rgba(30, 6, 40, 0.4) 0%, rgba(30, 6, 40, 0) 70%),
+    linear-gradient(180deg, rgba(122, 15, 80, 0.26) 0%, rgba(36, 8, 52, 0.52) 100%);
+}
+
+.wings__text {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 2px 18px rgba(20, 4, 30, 0.55);
+}
+
+.wings__eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #f3d9a0;
+}
+
+.wings__eyebrow::after {
+  content: '';
+  display: block;
+  width: 44px;
+  height: 2px;
+  margin: 14px auto 0;
+  border-radius: 2px;
+  background: #f3d9a0;
+  opacity: 0.8;
+}
+
+.wings__title {
+  margin-top: 18px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 4.6vw, 3.4rem);
+  line-height: 1.18;
+}
+
 /* ---------- Leadership ---------- */
 .leaders {
   display: grid;
@@ -544,10 +751,111 @@
 }
 
 .footer__inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px 24px;
+}
+
+.footer__tag {
+  text-align: right;
+}
+
+/* social icons – pure CSS shapes, no images or SVG */
+.socials {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.social {
+  --s-bg: var(--paper);
+  --s-hover: var(--pink-deep);
+  --cut: var(--s-bg); /* colour of the "hole" inside the YouTube play triangle */
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--paper-edge);
+  background: var(--s-bg);
+  color: var(--pink-deep);
+  transition: transform 0.2s, background 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.social:hover,
+.social:focus-visible {
+  --cut: var(--s-hover);
+  transform: translateY(-3px);
+  background: var(--s-hover);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 10px 18px -10px var(--s-hover);
+}
+
+.social--facebook { --s-hover: #1877f2; }
+.social--youtube { --s-hover: #e62117; }
+.social--mail { --s-hover: #ea4335; }
+
+.social__icon {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+}
+
+/* Facebook – bold "f" */
+.social--facebook .social__icon {
+  width: 14px;
+  height: 22px;
+}
+
+.social--facebook .social__icon::before {
+  content: 'f';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-48%, -52%);
+  font: 800 26px/1 Arial, Helvetica, sans-serif;
+}
+
+/* YouTube – rounded screen with a play triangle */
+.social--youtube .social__icon {
+  width: 22px;
+  height: 16px;
+  border-radius: 5px;
+  background: currentColor;
+}
+
+.social--youtube .social__icon::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-35%, -50%);
+  border-style: solid;
+  border-width: 4px 0 4px 7px;
+  border-color: transparent transparent transparent var(--cut);
+}
+
+/* Gmail – envelope with a flap */
+.social--mail .social__icon {
+  width: 22px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-radius: 3px;
+}
+
+.social--mail .social__icon::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -2px;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateX(-50%) rotate(45deg) translate(-1px, -1px);
 }
 
 /* ---------- Responsive ---------- */
@@ -571,13 +879,86 @@
   }
 
   .nav.is-open {
-    max-height: 360px;
+    max-height: calc(100vh - 80px);
+    max-height: calc(100dvh - 80px); /* fits the screen; scrolls if a dropdown makes it longer */
+    overflow-y: auto;
   }
 
   .nav a {
     width: 100%;
     padding: 16px 4%;
     border-top: 1px solid var(--paper-edge);
+  }
+
+  /* mobile: each row is a full-width link; rows with a dropdown get an arrow button on the right */
+  .nav__item {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .nav__link {
+    display: flex;
+    align-items: center;
+    min-height: 56px;
+  }
+
+  /* the whole row is the button: tap anywhere on it to open / close; arrow sits on the right */
+  .nav__link--parent {
+    width: 100%;
+    padding: 16px 4%;
+    border-top: 1px solid var(--paper-edge);
+    text-align: left;
+  }
+
+  .nav__item--has-menu > .nav__link::after {
+    width: 8px;
+    height: 8px;
+    margin-left: auto;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+  }
+
+  .nav__item--has-menu.is-open > .nav__link {
+    color: var(--pink-deep);
+  }
+
+  .nav__item--has-menu.is-open > .nav__link::after {
+    transform: translateY(2px) rotate(225deg);
+  }
+
+  .nav__menu {
+    max-height: 0;
+    overflow: hidden;
+    background: var(--paper-deep);
+    transition: max-height 0.3s;
+  }
+
+  .nav__item.is-open > .nav__menu {
+    max-height: 360px;
+  }
+
+  .nav__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav .nav__list a {
+    display: flex;
+    align-items: center;
+    padding: 14px 4% 14px calc(4% + 20px);
+    font-size: 0.92rem;
+  }
+
+  .nav .nav__list a::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    margin-right: 12px;
+    border-radius: 50%;
+    background: var(--pink);
+    opacity: 0.7;
   }
 
   .hero {
@@ -630,6 +1011,22 @@
     max-width: none;
     padding: 0 24px 26px;
   }
+
+  .wings__video {
+    aspect-ratio: 4 / 3; /* wider than before, so more of the left and right of the video shows */
+    min-height: 0;
+    object-position: 45% center;
+  }
+
+  .footer__inner {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .socials { order: 1; }
+  .footer__tag { order: 2; text-align: center; }
+  .footer__copy { order: 3; }
 
   .leader {
     grid-template-columns: 1fr 1fr;
@@ -981,4 +1378,165 @@
       rgba(120, 90, 60, 0.07) 80px,
       rgba(255, 255, 255, 0) 106px
     );
+}
+
+/* ---------- Extra responsive polish ---------- */
+/* between tablet and desktop the 8 links + theme button need a little less room */
+@media (min-width: 861px) and (max-width: 1080px) {
+  .nav { gap: 16px; }
+  .nav a,
+  .nav__link--parent { font-size: 0.88rem; }
+  .brand { gap: 8px; margin-right: 14px; }
+  .brand__logo { height: 54px; width: 54px; }
+  .brand__sub { font-size: 0.58rem; letter-spacing: 0.12em; }
+  .header__tools { margin-left: 12px; }
+}
+
+@media (max-width: 560px) {
+  .header__inner { height: 72px; }
+  .nav { top: 72px; }
+  .nav.is-open { max-height: calc(100vh - 72px); max-height: calc(100dvh - 72px); }
+
+  .brand { gap: 8px; min-width: 0; }
+  .brand__logo { height: 50px; width: 50px; }
+  .brand__sub { font-size: 0.58rem; letter-spacing: 0.14em; }
+  .header__tools { gap: 8px; }
+  .theme-btn { width: 38px; height: 38px; }
+  .menu-btn { padding: 8px 11px; }
+
+  .hero { padding: 40px 0 80px; }
+  .hero__verse { margin-top: 36px; }
+
+  .section { padding-top: 76px; }
+  .time { padding: 22px 22px; }
+  .card { padding: 26px 22px; }
+
+  /* photo above text on phones, so neither is squeezed */
+  .leader { grid-template-columns: 1fr; gap: 18px; }
+  .leader__body,
+  .leader:nth-child(even) .leader__body { padding: 0 8px; }
+
+  .about { gap: 36px; }
+  .about__panel { padding: 32px 22px; }
+  .about__cross { height: 180px; }
+
+  .cta { margin-top: 70px; padding: 48px 0 40px; }
+  .btn--light { margin: 0 0 12px; width: min(100%, 300px); }
+
+  .wings { border-radius: 22px; }
+  .wings__eyebrow { font-size: 0.7rem; }
+
+  .footer { padding: 32px 0; }
+}
+
+@media (max-width: 360px) {
+  .brand__sub { font-size: 0.52rem; letter-spacing: 0.1em; }
+  .brand__logo { height: 44px; width: 44px; }
+}
+
+/* ======================================================================
+   DARK MODE – "Holy Ghost night": deep wine-black, candlelight gold,
+   Pentecost-flame pink.  Switched with  <html data-theme="dark">
+   ====================================================================== */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --paper: #150b17;
+  --paper-deep: #1d1022;
+  --paper-edge: #3d2745;
+  --ink: #f6ecdc;
+  --ink-soft: #cdbdc9;
+  --pink: #e8429f;
+  --pink-deep: #ff7cc4;            /* lighter, so pink text is readable on dark */
+  --pink-soft: rgba(214, 33, 143, 0.24);
+  --gold: #e8c070;
+  --shadow: 0 24px 50px -26px rgba(0, 0, 0, 0.85);
+}
+
+html[data-theme='dark'],
+html[data-theme='dark'] body {
+  background-color: var(--paper);
+  color: var(--ink);
+}
+
+/* soft flame glow top-right, candlelight bottom-left */
+html[data-theme='dark'] body {
+  background-image:
+    radial-gradient(900px 560px at 90% -6%, rgba(214, 33, 143, 0.2), transparent 62%),
+    radial-gradient(760px 620px at -8% 38%, rgba(232, 192, 112, 0.08), transparent 62%);
+}
+
+[data-theme='dark'] .header { background: rgba(21, 11, 23, 0.84); }
+
+/* logo has a white backing: give it a warm parchment badge instead of multiplying into black */
+[data-theme='dark'] .brand__logo {
+  mix-blend-mode: normal;
+  background: #fbf8f1;
+  border-radius: 14px;
+  padding: 3px;
+}
+
+/* sun icon (shown in dark mode) */
+[data-theme='dark'] .theme-btn__icon {
+  width: 8px;
+  height: 8px;
+  box-shadow: none;
+  background: currentColor;
+  transform: none;
+}
+
+[data-theme='dark'] .theme-btn__icon::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px dotted currentColor;
+}
+
+[data-theme='dark'] .theme-btn:hover { transform: rotate(-12deg); }
+
+/* cream cards -> lifted wine surfaces */
+[data-theme='dark'] .times__card,
+[data-theme='dark'] .card,
+[data-theme='dark'] .leader {
+  background: #22142b;
+}
+
+[data-theme='dark'] .about__panel {
+  background: linear-gradient(160deg, #1d1022, #2a1636);
+}
+
+[data-theme='dark'] .card:hover {
+  border-color: var(--gold);
+}
+
+/* black cross -> glowing gold-white cross */
+[data-theme='dark'] .about__cross {
+  filter: invert(1) sepia(0.55) saturate(2.4) brightness(1.05) drop-shadow(0 0 16px rgba(232, 192, 112, 0.5));
+}
+
+/* buttons / bands keep deep brand pink behind white text */
+[data-theme='dark'] .btn--primary {
+  background: linear-gradient(135deg, #d6218f, #a8146d);
+  box-shadow: 0 10px 24px -10px rgba(255, 90, 190, 0.55);
+}
+
+[data-theme='dark'] .cta {
+  background: linear-gradient(135deg, #8c1060, #3f0a38);
+}
+
+[data-theme='dark'] .btn--light { color: #8c1060; }
+
+[data-theme='dark'] .banner { background: #4a0a34; }
+
+[data-theme='dark'] .hero__photo {
+  box-shadow: 0 24px 50px -20px rgba(255, 90, 190, 0.35);
+}
+
+[data-theme='dark'] .social { --s-bg: #22142b; }
+
+[data-theme='dark'] .nav__list { background: #22142b; }
+
+@media (prefers-reduced-motion: reduce) {
+  .wings__video { display: none; }
+  .wings { background: url('./assets/under_his_wings_poster.jpg') center / cover; min-height: 320px; }
 }
